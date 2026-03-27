@@ -7,5 +7,9 @@ public abstract class UsableItem {
 		this.name = name;
 	}
 
-	public abstract void use(Combatant user, Combatant target);
+    public String getName() {
+		return name;
+	}
+
+	public abstract void use(Combatant target);
 }
