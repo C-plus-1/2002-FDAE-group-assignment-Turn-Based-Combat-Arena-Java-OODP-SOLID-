@@ -1,31 +1,12 @@
 package projCharacterClasses;
 
 public interface StatusEffect {
-	public void apply();
-	public void updateDuration();
-	public void remove();
-}
 
-class StunEffect implements StatusEffect{
-	public void apply() {
-		
-	}
-	public void updateDuration() {
-		
-	}
-	public void remove() {
-		
-	}
-}
+    public String getName();
+    public int getRemainingDuration();
+    public void apply(Combatant target);
+    public void updateDuration();
+    public boolean hasExpired();
+    public void remove(Combatant target);
 
-class AttackBuff implements StatusEffect{
-	public void apply() {
-		
-	}
-	public void updateDuration() {
-		
-	}
-	public void remove() {
-		
-	}
 }

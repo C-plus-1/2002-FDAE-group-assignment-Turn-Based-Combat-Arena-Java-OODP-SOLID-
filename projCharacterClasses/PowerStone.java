@@ -8,6 +8,6 @@ public class PowerStone extends UsableItem {
 
     @Override
     public void use(Combatant target) {
-        // free extra use of the skill
+        target.SpecialSkill();
     }
 }

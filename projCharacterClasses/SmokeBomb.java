@@ -8,6 +8,6 @@ public class SmokeBomb extends UsableItem {
 
     @Override
     public void use(Combatant target) {
-        //smoke effect
+        target.setAttack(0);
     }
 }
