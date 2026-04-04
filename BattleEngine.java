@@ -2,9 +2,11 @@ package assignment.core;
 
 import java.util.*;
 
-import assignment.action.*;
-import assignment.effect.*;
-import Boundary.ConsoleInputHandler;
+import assignment.action.Action;
+import assignment.effect.StatusEffect;
+import assignment.factory.ActionFactory;
+import assignment.factory.EnemyFactory;
+import assignment.boundary.InputHandler;
 
 public class BattleEngine {
 
@@ -12,18 +14,28 @@ public class BattleEngine {
     private List<Combatant> enemies;
     private BattleContext context;
 
+    private ActionFactory actionFactory;
+    private EnemyFactory enemyFactory;
+    private InputHandler input;
+
     private boolean backupSpawned = false;
     private int round = 1;
 
-    private ConsoleInputHandler input = new ConsoleInputHandler();
+    public BattleEngine(Combatant player,
+                        List<Combatant> enemies,
+                        ActionFactory actionFactory,
+                        EnemyFactory enemyFactory,
+                        InputHandler input) {
 
-    public BattleEngine(Combatant player, List<Combatant> enemies) {
         this.player = player;
         this.enemies = enemies;
         this.context = new BattleContext(enemies);
+
+        this.actionFactory = actionFactory;
+        this.enemyFactory = enemyFactory;
+        this.input = input;
     }
 
-    // ===================== MAIN GAME LOOP =====================
     public void startBattle() {
         System.out.println("=== Battle Start ===");
 
@@ -59,17 +71,14 @@ public class BattleEngine {
         endGame();
     }
 
-    // ===================== TURN ORDER =====================
     private List<Combatant> getTurnOrder() {
         List<Combatant> all = new ArrayList<>();
         all.add(player);
         all.addAll(enemies);
-
         all.sort((a, b) -> b.getSpeed() - a.getSpeed());
         return all;
     }
 
-    // ===================== PLAYER TURN =====================
     private void handlePlayerTurn() {
 
         System.out.println("\nChoose Action:");
@@ -80,43 +89,20 @@ public class BattleEngine {
 
         int choice = input.getChoice("Enter choice: ", 1, 4);
 
-        Action action = null;
-        Combatant target = player;
+        Action action = actionFactory.createAction(choice);
 
-        switch (choice) {
-            case 1:
-                action = new BasicAttack();
-                target = selectEnemy();
-                break;
-
-            case 2:
-                action = new Defend();
-                target = player;
-                break;
-
-            case 3:
-                action = new UseItem();
-                target = player;
-                break;
-
-            case 4:
-                action = new UseSpecialSkill();
-                target = selectEnemy(); // works even if skill hits all
-                break;
-        }
+        Combatant target = (choice == 1 || choice == 4)
+                ? selectEnemy()
+                : player;
 
         action.execute(player, target, context);
     }
 
-    // ===================== ENEMY TURN =====================
     private void handleEnemyTurn(Combatant enemy) {
-        System.out.println(enemy + " attacks!");
-
-        Action attack = new BasicAttack();
+        Action attack = actionFactory.createAction(1); // BasicAttack
         attack.execute(enemy, player, context);
     }
 
-    // ===================== TARGET SELECTION =====================
     private Combatant selectEnemy() {
         List<Combatant> aliveEnemies = new ArrayList<>();
 
@@ -132,33 +118,24 @@ public class BattleEngine {
         return aliveEnemies.get(choice - 1);
     }
 
-    // ===================== STATUS EFFECTS =====================
     private void applyStatusEffects(Combatant c) {
         for (StatusEffect effect : c.getEffects()) {
             effect.apply(c);
         }
     }
 
-    // ===================== BACKUP SPAWN =====================
     private void handleBackupSpawn() {
         if (!backupSpawned && enemies.stream().noneMatch(Combatant::isAlive)) {
 
             System.out.println("Backup enemies incoming!");
-
-            // SIMPLE SAFE VERSION (no dependency on missing classes)
-            enemies.add(new Goblin());
-            enemies.add(new Wolf());
+            enemies.addAll(enemyFactory.createBackupEnemies());
 
             backupSpawned = true;
         }
     }
 
-    // ===================== GAME END =====================
     private boolean isGameOver() {
-        boolean playerDead = !player.isAlive();
-        boolean enemiesDead = enemies.stream().noneMatch(Combatant::isAlive);
-
-        return playerDead || enemiesDead;
+        return !player.isAlive() || enemies.stream().noneMatch(Combatant::isAlive);
     }
 
     private void endGame() {
