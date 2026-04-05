@@ -1,148 +1,187 @@
 package assignment.core;
 
 import java.util.*;
-
-import assignment.action.Action;
-import assignment.effect.StatusEffect;
-import assignment.factory.ActionFactory;
-import assignment.factory.EnemyFactory;
-import assignment.boundary.InputHandler;
+import assignment.action.*;
+import assignment.effect.*;
 
 public class BattleEngine {
 
-    private Combatant player;
+    private List<Combatant> players;
     private List<Combatant> enemies;
+    private List<Combatant> backupEnemies;
+
+    private TurnOrderStrategy turnOrderStrategy;
+
     private BattleContext context;
-
-    private ActionFactory actionFactory;
-    private EnemyFactory enemyFactory;
-    private InputHandler input;
-
-    private boolean backupSpawned = false;
     private int round = 1;
 
-    public BattleEngine(Combatant player,
+    public BattleEngine(List<Combatant> players,
                         List<Combatant> enemies,
-                        ActionFactory actionFactory,
-                        EnemyFactory enemyFactory,
-                        InputHandler input) {
+                        List<Combatant> backupEnemies,
+                        TurnOrderStrategy strategy,
+                        BattleContext context) {
 
-        this.player = player;
+        this.players = players;
         this.enemies = enemies;
-        this.context = new BattleContext(enemies);
-
-        this.actionFactory = actionFactory;
-        this.enemyFactory = enemyFactory;
-        this.input = input;
+        this.backupEnemies = backupEnemies;
+        this.turnOrderStrategy = strategy;
+        this.context = context;
     }
 
+    // =========================
+    // MAIN BATTLE LOOP
+    // =========================
     public void startBattle() {
-        System.out.println("=== Battle Start ===");
 
-        while (!isGameOver()) {
+        System.out.println("=== BATTLE START ===");
+
+        while (!isBattleOver()) {
+
             System.out.println("\n--- Round " + round + " ---");
 
-            List<Combatant> turnOrder = getTurnOrder();
+            List<Combatant> turnOrder = getAllAliveCombatants();
+            turnOrder = turnOrderStrategy.determineOrder(turnOrder);
 
             for (Combatant c : turnOrder) {
 
                 if (!c.isAlive()) continue;
 
-                applyStatusEffects(c);
+                // Apply effects + cooldowns (CORRECT for your Combatant)
+                c.applyEffects();
+                c.reduceCooldowns();
+
+                if (!c.isAlive()) continue;
 
                 if (c.isStunned()) {
-                    System.out.println(c + " is stunned and skips turn!");
+                    System.out.println(c + " is stunned and skips turn.");
                     continue;
                 }
 
-                if (c == player) {
-                    handlePlayerTurn();
-                } else {
-                    handleEnemyTurn(c);
-                }
+                takeTurn(c);
 
-                if (isGameOver()) break;
+                if (isBattleOver()) break;
             }
 
             handleBackupSpawn();
+
             round++;
         }
 
-        endGame();
+        printResult();
     }
 
-    private List<Combatant> getTurnOrder() {
+    // =========================
+    // TURN LOGIC
+    // =========================
+    private void takeTurn(Combatant c) {
+
+        if (players.contains(c)) {
+            playerTurn(c);
+        } else {
+            enemyTurn(c);
+        }
+    }
+
+    private void playerTurn(Combatant player) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("\nPlayer Turn: " + player);
+        System.out.println("1. Basic Attack");
+
+        int choice = sc.nextInt();
+
+        if (choice == 1) {
+            Combatant target = getFirstAlive(enemies);
+            if (target != null) {
+                Action action = new BasicAttack();
+                action.execute(player, target, context);
+            }
+        }
+    }
+
+    private void enemyTurn(Combatant enemy) {
+
+        Combatant target = getFirstAlive(players);
+
+        if (target != null) {
+            Action action = new BasicAttack();
+            action.execute(enemy, target, context);
+        }
+    }
+
+    // =========================
+    // BACKUP SPAWN
+    // =========================
+    private void handleBackupSpawn() {
+
+        boolean allEnemiesDead = enemies.stream().noneMatch(Combatant::isAlive);
+
+        if (allEnemiesDead && backupEnemies != null && !backupEnemies.isEmpty()) {
+
+            System.out.println(">>> Backup enemies have arrived!");
+
+            enemies.addAll(backupEnemies);
+            backupEnemies.clear();
+        }
+    }
+
+    // =========================
+    // HELPERS
+    // =========================
+    private List<Combatant> getAllAliveCombatants() {
+
         List<Combatant> all = new ArrayList<>();
-        all.add(player);
-        all.addAll(enemies);
-        all.sort((a, b) -> b.getSpeed() - a.getSpeed());
+
+        for (Combatant c : players)
+            if (c.isAlive()) all.add(c);
+
+        for (Combatant c : enemies)
+            if (c.isAlive()) all.add(c);
+
         return all;
     }
 
-    private void handlePlayerTurn() {
-
-        System.out.println("\nChoose Action:");
-        System.out.println("1. Basic Attack");
-        System.out.println("2. Defend");
-        System.out.println("3. Use Item");
-        System.out.println("4. Special Skill");
-
-        int choice = input.getChoice("Enter choice: ", 1, 4);
-
-        Action action = actionFactory.createAction(choice);
-
-        Combatant target = (choice == 1 || choice == 4)
-                ? selectEnemy()
-                : player;
-
-        action.execute(player, target, context);
+    private Combatant getFirstAlive(List<Combatant> list) {
+        for (Combatant c : list)
+            if (c.isAlive()) return c;
+        return null;
     }
 
-    private void handleEnemyTurn(Combatant enemy) {
-        Action attack = actionFactory.createAction(1); // BasicAttack
-        attack.execute(enemy, player, context);
+    private boolean isBattleOver() {
+
+        boolean playersAlive = players.stream().anyMatch(Combatant::isAlive);
+        boolean enemiesAlive = enemies.stream().anyMatch(Combatant::isAlive);
+
+        return !(playersAlive && enemiesAlive);
     }
 
-    private Combatant selectEnemy() {
-        List<Combatant> aliveEnemies = new ArrayList<>();
+    private void printResult() {
 
-        for (Combatant e : enemies) {
-            if (e.isAlive()) aliveEnemies.add(e);
-        }
+        boolean playersAlive = players.stream().anyMatch(Combatant::isAlive);
 
-        for (int i = 0; i < aliveEnemies.size(); i++) {
-            System.out.println((i + 1) + ". " + aliveEnemies.get(i));
-        }
+        System.out.println("\n=== BATTLE END ===");
 
-        int choice = input.getChoice("Select target: ", 1, aliveEnemies.size());
-        return aliveEnemies.get(choice - 1);
-    }
-
-    private void applyStatusEffects(Combatant c) {
-        for (StatusEffect effect : c.getEffects()) {
-            effect.apply(c);
-        }
-    }
-
-    private void handleBackupSpawn() {
-        if (!backupSpawned && enemies.stream().noneMatch(Combatant::isAlive)) {
-
-            System.out.println("Backup enemies incoming!");
-            enemies.addAll(enemyFactory.createBackupEnemies());
-
-            backupSpawned = true;
-        }
-    }
-
-    private boolean isGameOver() {
-        return !player.isAlive() || enemies.stream().noneMatch(Combatant::isAlive);
-    }
-
-    private void endGame() {
-        if (player.isAlive()) {
-            System.out.println("Victory! Rounds: " + round);
+        if (playersAlive) {
+            System.out.println("Victory!");
         } else {
-            System.out.println("Defeat... Rounds survived: " + round);
+            System.out.println("Defeat!");
+        }
+    }
+
+    // =========================
+    // TURN ORDER STRATEGY (DIP)
+    // =========================
+    public interface TurnOrderStrategy {
+        List<Combatant> determineOrder(List<Combatant> combatants);
+    }
+
+    // Speed-based implementation
+    public static class SpeedBasedTurnOrder implements TurnOrderStrategy {
+        @Override
+        public List<Combatant> determineOrder(List<Combatant> combatants) {
+            combatants.sort((a, b) -> b.getSpeed() - a.getSpeed());
+            return combatants;
         }
     }
 }
