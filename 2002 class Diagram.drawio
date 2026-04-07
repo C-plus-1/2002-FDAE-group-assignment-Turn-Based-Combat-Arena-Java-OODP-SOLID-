@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.1 Chrome/142.0.7444.265 Electron/39.8.0 Safari/537.36" version="29.6.1">
   <diagram name="Page-1" id="-zRuBnDeroLoDq4GCZg9">
-    <mxGraphModel dx="2692" dy="1324" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1383" dy="599" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -36,7 +36,7 @@
             <mxPoint x="-27" y="7" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="sL-AoYWcA3Gx_Lqf9hoo-29" parent="1" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" value="Control Object" vertex="1">
+        <mxCell id="sL-AoYWcA3Gx_Lqf9hoo-29" parent="1" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" value="Control" vertex="1">
           <mxGeometry height="140" width="140" x="70" y="310" as="geometry" />
         </mxCell>
         <mxCell id="sL-AoYWcA3Gx_Lqf9hoo-30" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;BattleEngine&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-turnFlow(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" vertex="1">
@@ -171,10 +171,10 @@
         <mxCell id="sL-AoYWcA3Gx_Lqf9hoo-70" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;StatusEffect&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+apply(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+updateDuration(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+remove(): void&lt;/p&gt;" vertex="1">
           <mxGeometry height="130" width="280" x="880" y="2490" as="geometry" />
         </mxCell>
-        <mxCell id="sL-AoYWcA3Gx_Lqf9hoo-71" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;StunEffect&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;@override&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+&lt;span style=&quot;background-color: transparent;&quot;&gt;apply(): void&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+updateDuration(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+remove(): void&lt;/p&gt;" vertex="1">
+        <mxCell id="sL-AoYWcA3Gx_Lqf9hoo-71" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;StunEffect&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+&lt;span style=&quot;background-color: transparent;&quot;&gt;apply(): void&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+updateDuration(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+remove(): void&lt;/p&gt;" vertex="1">
           <mxGeometry height="130" width="220" x="1240" y="2370" as="geometry" />
         </mxCell>
-        <mxCell id="sL-AoYWcA3Gx_Lqf9hoo-72" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Attackbuff&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;@override&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+&lt;span style=&quot;background-color: transparent;&quot;&gt;apply(): void&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+updateDuration(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+remove(): void&lt;/p&gt;" vertex="1">
+        <mxCell id="sL-AoYWcA3Gx_Lqf9hoo-72" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Attackbuff&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+&lt;span style=&quot;background-color: transparent;&quot;&gt;apply(): void&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+updateDuration(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+remove(): void&lt;/p&gt;" vertex="1">
           <mxGeometry height="110" width="220" x="1240" y="2600" as="geometry" />
         </mxCell>
         <mxCell id="sL-AoYWcA3Gx_Lqf9hoo-73" edge="1" parent="1" source="sL-AoYWcA3Gx_Lqf9hoo-71" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=-0.005;exitY=0.592;exitDx=0;exitDy=0;exitPerimeter=0;" target="sL-AoYWcA3Gx_Lqf9hoo-70" value="implements">
@@ -290,6 +290,18 @@
         </mxCell>
         <mxCell id="jkQ_PR2DJCjXEHKTU3Px-13" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="0...1" vertex="1">
           <mxGeometry height="30" width="60" x="1190" y="2660" as="geometry" />
+        </mxCell>
+        <mxCell id="wrO841qXYXBJLq-LIFTh-1" parent="1" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=left;" value="OOPrinciples:&lt;div&gt;Inheritance&lt;div&gt;Encapsulation: OCP, with the abstract class Combatant&lt;/div&gt;&lt;div&gt;Polymorphism: different ways of actions&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="150" width="160" x="970" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="wrO841qXYXBJLq-LIFTh-3" parent="1" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=left;" value="@Override&lt;div&gt;polymorphism&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="130" x="1110" y="1180" as="geometry" />
+        </mxCell>
+        <mxCell id="wrO841qXYXBJLq-LIFTh-4" parent="1" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=left;" value="@Override&lt;div&gt;polymorphism&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="130" x="490" y="1090" as="geometry" />
+        </mxCell>
+        <mxCell id="wrO841qXYXBJLq-LIFTh-5" parent="1" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=left;" value="SRP&lt;div&gt;Combatant and Actions control different things&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;OCP:&lt;/div&gt;&lt;div&gt;abstract class, wasy to extend&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;ISP:&lt;/div&gt;&lt;div&gt;not fat&lt;/div&gt;" vertex="1">
+          <mxGeometry height="210" width="185" x="800" y="1470" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
