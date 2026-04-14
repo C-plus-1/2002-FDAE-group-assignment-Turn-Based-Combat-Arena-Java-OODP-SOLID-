@@ -6,7 +6,8 @@ UML class diagram by Jiayi: the clearer version can be found in the specific fil
 
 
 Sequence Diagram by Kamalesh: the clearer version can be found in the specific file
-<img width="1476" height="4096" alt="Sequence Diagram SC2002" src="https://github.com/user-attachments/assets/802c7abf-cf28-4484-8be1-4603bc8f6d3a" />
+<img width="1334" height="3041" alt="Sequence Diagram SC2002 Project" src="https://github.com/user-attachments/assets/823d3505-a1eb-474c-8e68-2d9f85397d76" />
+
 
 
 
