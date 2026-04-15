@@ -245,13 +245,13 @@ public class GameApp {
                     if (playerWon) {
                         view.showVictoryScreen(
                             player.getHp() + "/" + player.getMaxHp(),
-                            0,
+                            engineRef[0].getRound() - 1,
                             playerItems.size() + " item(s) remaining"
                         );
                     } else {
                         view.showDefeatScreen(
                             (int) enemies.stream().filter(Combatant::isAlive).count(),
-                            0
+                            engineRef[0].getRound() - 1
                         );
                     }
                 }

@@ -132,6 +132,10 @@ public class BattleEngine {
         boolean playerWon = enemies.stream().allMatch(c -> !c.isAlive());
         if (eventListener != null) eventListener.onBattleEnd(playerWon);
     }
+    
+    public int getRound() {
+        return round;
+    }
 
     private void endRound() {
         for (Combatant c : players) {
