@@ -151,6 +151,8 @@ public class BattleEngine {
     private void notifyBackupSpawn(List<Combatant> newEnemies) {
         if (eventListener != null) eventListener.onBackupSpawn(newEnemies);
     }
+    
+    public int getRound() { return round; }
 
     public interface BattleEventListener {
         void onRoundStart(int roundNumber);
