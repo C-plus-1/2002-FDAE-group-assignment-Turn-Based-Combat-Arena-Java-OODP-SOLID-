@@ -152,7 +152,6 @@ public class BattleEngine {
         if (eventListener != null) eventListener.onBackupSpawn(newEnemies);
     }
     
-    public int getRound() { return round; }
 
     public interface BattleEventListener {
         void onRoundStart(int roundNumber);
