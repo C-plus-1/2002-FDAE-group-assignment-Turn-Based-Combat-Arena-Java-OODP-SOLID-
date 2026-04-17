@@ -2,7 +2,9 @@
  A turn-based combat arena game that runs entirely in the command line (no GUI). A player  fights one or more enemies using Actions, Items, and Status Effects.
 
 UML class diagram by Jiayi: the clearer version can be found in the specific file
-<img width="9204" height="9804" alt="image" src="https://github.com/user-attachments/assets/c69f8961-be0a-4c04-b1ac-7c0ac33d1117" />
+<img width="9964" height="10004" alt="image" src="https://github.com/user-attachments/assets/3092ce86-c55a-44af-8c0d-7972e7041959" />
+
+
 
 
 Sequence Diagram by Kamalesh: the clearer version can be found in the specific file
