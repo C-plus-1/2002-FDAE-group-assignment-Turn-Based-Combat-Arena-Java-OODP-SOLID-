@@ -8,7 +8,8 @@ UML class diagram by Jiayi: this is the image. The text version can be found in 
 
 
 Sequence Diagram by Kamalesh: the clearer version can be found in the specific file
-<img width="1334" height="3041" alt="Sequence Diagram SC2002 Project" src="https://github.com/user-attachments/assets/823d3505-a1eb-474c-8e68-2d9f85397d76" />
+<img width="1322" height="4096" alt="Sequence Diagram SC2002 Final" src="https://github.com/user-attachments/assets/42885a50-cda4-4081-8173-62dbfadeb560" />
+
 
 
 
